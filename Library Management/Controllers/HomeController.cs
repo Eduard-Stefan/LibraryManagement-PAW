@@ -26,9 +26,10 @@ namespace Library_Management.Controllers
 			return View();
 		}
 
-		public IActionResult Books()
+		public async Task<IActionResult> Books()
 		{
-			return View();
+			var applicationDbContext = _context.Books.Include(b => b.Author).Include(b => b.Genre).Include(b => b.Publisher);
+			return View(await applicationDbContext.ToListAsync());
 		}
 
 		public async Task<IActionResult> Subsidiaries()

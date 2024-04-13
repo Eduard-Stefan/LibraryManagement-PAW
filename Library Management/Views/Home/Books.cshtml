@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<Library_Management.Models.Book>
+
+@{
 	ViewData["Title"] = "Books";
 }
 
@@ -38,34 +40,34 @@
 	}
 </style>
 
-@* <div class="container"> *@
-@* 	<h2 class="text-center page-title">Books</h2> *@
-@* 	@if (TempData["SuccessMessage"] != null) *@
-@* 	{ *@
-@* 		<div class="alert alert-success alert-dismissible fade show" role="alert"> *@
-@* 			<strong>@TempData["SuccessMessage"]</strong> *@
-@* 			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> *@
-@* 		</div> *@
-@* 		<div class="alert alert-warning alert-dismissible fade show" role="alert"> *@
-@* 			<strong>The book must be returned in maximum 30 days!</strong> *@
-@* 			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> *@
-@* 		</div> *@
-@* 	} *@
-@* 	<div class="row"> *@
-@* 		@foreach (var book in Model.Books) *@
-@* 		{ *@
-@* 			<div class="col-lg-3 col-md-4 col-sm-6 mb-4"> *@
-@* 				<div class="card mb-3"> *@
-@* 					<img class="card-img-top" src="/books/@book.ImageFileName" alt="@book.Title"> *@
-@* 					<div class="card-body"> *@
-@* 						<h5 class="card-title">@book.Title</h5> *@
-@* 						<div class="button-container"> *@
-@* 							<a class="btn btn-outline-primary btn-block" href="/Borrow?id=@book.Id">Borrow</a> *@
-@* 							<a class="btn btn-outline-secondary btn-block" href="/Details?id=@book.Id">Details</a> *@
-@* 						</div> *@
-@* 					</div> *@
-@* 				</div> *@
-@* 			</div> *@
-@* 		} *@
-@* 	</div> *@
-@* </div> *@
+<div class="container">
+	<h2 class="text-center page-title">Books</h2>
+	@if (TempData["SuccessMessage"] != null)
+	{
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+			<strong>@TempData["SuccessMessage"]</strong>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+		<div class="alert alert-warning alert-dismissible fade show" role="alert">
+			<strong>The book must be returned in maximum 30 days!</strong>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	}
+	<div class="row">
+		@foreach (var item in Model)
+		{
+			<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+				<div class="card mb-3">
+					<img class="card-img-top" src="/books/@item.ImageFileName" alt="@item.Title">
+					<div class="card-body">
+						<h5 class="card-title">@item.Title</h5>
+						<div class="button-container">
+							<a class="btn btn-outline-primary btn-block" href="/Borrow?id=@item.Id">Borrow</a> @* TODO: modify href *@
+							<a class="btn btn-outline-secondary btn-block" href="/Details?id=@item.Id">Details</a> @* TODO: modify href *@
+						</div>
+					</div>
+				</div>
+			</div>
+		}
+	</div>
+</div>

@@ -9,6 +9,7 @@ using Library_Management.Models;
 
 namespace Library_Management.Controllers
 {
+	//[Authorize(Roles = "admin")]
     public class BookSubsidiariesController : Controller
     {
         private readonly ApplicationDbContext _context;
