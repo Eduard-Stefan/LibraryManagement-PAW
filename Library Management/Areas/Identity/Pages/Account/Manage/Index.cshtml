@@ -1,0 +1,22 @@
+﻿@page
+@model IndexModel
+@{
+	ViewData["Title"] = "Profile";
+	ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<h3>@ViewData["Title"]</h3>
+<partial name="_StatusMessage" for="StatusMessage" />
+
+<div>
+	Name: @Model.user?.Name
+</div>
+<div>
+	Email: @Model.user?.Email
+</div>
+<div>
+	Phone: @Model.user?.PhoneNumber
+</div>
+<div>
+	Address: @Model.user?.Address
+</div>

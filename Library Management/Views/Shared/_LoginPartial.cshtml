@@ -1,0 +1,104 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Library_Management.Models
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+<ul class="navbar-nav">
+	@if (SignInManager.IsSignedIn(User))
+	{
+		if (User.IsInRole("admin"))
+		{
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Manage</a>
+				<ul class="dropdown-menu">
+					<li>
+						<a class="dropdown-item" asp-page="/Admin/Users/Index">Users</a>
+					</li>
+					<li>
+						<hr class="dropdown-divider">
+					</li>
+					<li>
+						<a class="dropdown-item" asp-page="/Admin/Unwelcome-Clients/Index">Unwelcome Clients</a>
+					</li>
+					<li>
+						<hr class="dropdown-divider">
+					</li>
+					<li>
+						<a class="dropdown-item" asp-page="/Admin/Books/Index">Books</a>
+					</li>
+					<li>
+						<hr class="dropdown-divider">
+					</li>
+					<li>
+						<a class="dropdown-item" asp-page="/Admin/Subsidiaries/Index">Subsidiaries</a>
+					</li>
+					<li>
+						<hr class="dropdown-divider">
+					</li>
+					<li>
+						<a class="dropdown-item" asp-page="/Admin/Books-Subsidiaries/Index">Books-Subsidiaries</a>
+					</li>
+					<li>
+						<hr class="dropdown-divider">
+					</li>
+					<li>
+						<a class="dropdown-item" asp-page="/Admin/Authors/Index">Authors</a>
+					</li>
+					<li>
+						<hr class="dropdown-divider">
+					</li>
+					<li>
+						<a class="dropdown-item" asp-page="/Admin/Publishers/Index">Publishers</a>
+					</li>
+					<li>
+						<hr class="dropdown-divider">
+					</li>
+					<li>
+						<a class="dropdown-item" asp-page="/Admin/Genres/Index">Genres</a>
+					</li>
+				</ul>
+			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
+				<ul class="dropdown-menu">
+					<li>
+						<a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">Profile</a>
+					</li>
+					<li>
+						<hr class="dropdown-divider">
+					</li>
+					<li>
+						<a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout">Logout</a>
+					</li>
+				</ul>
+			</li>
+		}
+		else if (User.IsInRole("client"))
+		{
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Client</a>
+				<ul class="dropdown-menu">
+					<li>
+						<a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">Profile</a>
+					</li>
+					<li>
+						<hr class="dropdown-divider">
+					</li>
+					<li>
+						<a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout">Logout</a>
+					</li>
+				</ul>
+			</li>
+		}
+	}
+	else
+	{
+		<li class="nav-item">
+			<a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+		</li>
+	}
+</ul>
