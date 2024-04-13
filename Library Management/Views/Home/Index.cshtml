@@ -2,7 +2,42 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    .card {
+        max-width: 800px;
+        height: 450px;
+        background-image: url('/background/background.jpg');
+        background-size: 100% 100%;
+        background-position: center;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    .btn-get-started {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: transparent;
+        border: 2px solid #f8f9fa;
+        color: #f8f9fa;
+    }
+</style>
+
+<div class="container mt-2">
+	<div class="row justify-content-center">
+		<div class="col-md-8 text-center">
+			<h1 class="fw-bold">Welcome to BiblioTecha</h1>
+			<p class="lead fs-4">Discover our books</p>
+		</div>
+	</div>
+	<div class="row mt-1 justify-content-center">
+		<div class="col-md-7">
+			<div class="card mx-auto">
+				<div class="card-body text-center">
+                    <a class="btn btn-outline-secondary btn-get-started" asp-area="" asp-controller="Home" asp-action="Books">Get Started</a>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

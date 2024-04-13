@@ -1,0 +1,71 @@
+﻿@{
+	ViewData["Title"] = "Books";
+}
+
+<style>
+	.card {
+		height: 100%;
+	}
+
+	.card-img-top {
+		width: 100%;
+		height: auto;
+		object-fit: contain;
+		aspect-ratio: 1;
+	}
+
+	.button-container {
+		display: flex;
+		justify-content: space-between;
+	}
+
+		.button-container a {
+			flex: 1;
+			margin: 0 5px;
+		}
+
+	.card-title {
+		margin-bottom: 30px;
+		text-align: center;
+	}
+
+	.card-container {
+		margin-top: 100px;
+	}
+
+	.page-title {
+		margin-bottom: 20px;
+	}
+</style>
+
+@* <div class="container"> *@
+@* 	<h2 class="text-center page-title">Books</h2> *@
+@* 	@if (TempData["SuccessMessage"] != null) *@
+@* 	{ *@
+@* 		<div class="alert alert-success alert-dismissible fade show" role="alert"> *@
+@* 			<strong>@TempData["SuccessMessage"]</strong> *@
+@* 			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> *@
+@* 		</div> *@
+@* 		<div class="alert alert-warning alert-dismissible fade show" role="alert"> *@
+@* 			<strong>The book must be returned in maximum 30 days!</strong> *@
+@* 			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> *@
+@* 		</div> *@
+@* 	} *@
+@* 	<div class="row"> *@
+@* 		@foreach (var book in Model.Books) *@
+@* 		{ *@
+@* 			<div class="col-lg-3 col-md-4 col-sm-6 mb-4"> *@
+@* 				<div class="card mb-3"> *@
+@* 					<img class="card-img-top" src="/books/@book.ImageFileName" alt="@book.Title"> *@
+@* 					<div class="card-body"> *@
+@* 						<h5 class="card-title">@book.Title</h5> *@
+@* 						<div class="button-container"> *@
+@* 							<a class="btn btn-outline-primary btn-block" href="/Borrow?id=@book.Id">Borrow</a> *@
+@* 							<a class="btn btn-outline-secondary btn-block" href="/Details?id=@book.Id">Details</a> *@
+@* 						</div> *@
+@* 					</div> *@
+@* 				</div> *@
+@* 			</div> *@
+@* 		} *@
+@* 	</div> *@
+@* </div> *@
