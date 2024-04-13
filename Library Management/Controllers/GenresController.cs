@@ -10,23 +10,23 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Library_Management.Controllers
 {
-    //[Authorize(Roles = "admin")]
-    public class SubsidiariesController : Controller
+	//[Authorize(Roles = "admin")]
+    public class GenresController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public SubsidiariesController(ApplicationDbContext context)
+        public GenresController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Subsidiaries
+        // GET: Genres
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Subsidiaries.ToListAsync());
+            return View(await _context.Genres.ToListAsync());
         }
 
-        // GET: Subsidiaries/Details/5
+        // GET: Genres/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,39 +34,39 @@ namespace Library_Management.Controllers
                 return NotFound();
             }
 
-            var subsidiary = await _context.Subsidiaries
+            var genre = await _context.Genres
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (subsidiary == null)
+            if (genre == null)
             {
                 return NotFound();
             }
 
-            return View(subsidiary);
+            return View(genre);
         }
 
-        // GET: Subsidiaries/Create
+        // GET: Genres/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Subsidiaries/Create
+        // POST: Genres/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Address")] Subsidiary subsidiary)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description")] Genre genre)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(subsidiary);
+                _context.Add(genre);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(subsidiary);
+            return View(genre);
         }
 
-        // GET: Subsidiaries/Edit/5
+        // GET: Genres/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -74,22 +74,22 @@ namespace Library_Management.Controllers
                 return NotFound();
             }
 
-            var subsidiary = await _context.Subsidiaries.FindAsync(id);
-            if (subsidiary == null)
+            var genre = await _context.Genres.FindAsync(id);
+            if (genre == null)
             {
                 return NotFound();
             }
-            return View(subsidiary);
+            return View(genre);
         }
 
-        // POST: Subsidiaries/Edit/5
+        // POST: Genres/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Address")] Subsidiary subsidiary)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description")] Genre genre)
         {
-            if (id != subsidiary.Id)
+            if (id != genre.Id)
             {
                 return NotFound();
             }
@@ -98,12 +98,12 @@ namespace Library_Management.Controllers
             {
                 try
                 {
-                    _context.Update(subsidiary);
+                    _context.Update(genre);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SubsidiaryExists(subsidiary.Id))
+                    if (!GenreExists(genre.Id))
                     {
                         return NotFound();
                     }
@@ -114,10 +114,10 @@ namespace Library_Management.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(subsidiary);
+            return View(genre);
         }
 
-        // GET: Subsidiaries/Delete/5
+        // GET: Genres/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -125,34 +125,34 @@ namespace Library_Management.Controllers
                 return NotFound();
             }
 
-            var subsidiary = await _context.Subsidiaries
+            var genre = await _context.Genres
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (subsidiary == null)
+            if (genre == null)
             {
                 return NotFound();
             }
 
-            return View(subsidiary);
+            return View(genre);
         }
 
-        // POST: Subsidiaries/Delete/5
+        // POST: Genres/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var subsidiary = await _context.Subsidiaries.FindAsync(id);
-            if (subsidiary != null)
+            var genre = await _context.Genres.FindAsync(id);
+            if (genre != null)
             {
-                _context.Subsidiaries.Remove(subsidiary);
+                _context.Genres.Remove(genre);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool SubsidiaryExists(int id)
+        private bool GenreExists(int id)
         {
-            return _context.Subsidiaries.Any(e => e.Id == id);
+            return _context.Genres.Any(e => e.Id == id);
         }
     }
 }

@@ -303,13 +303,13 @@ namespace Library_Management.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9c6fa4cf-9533-40b7-b5eb-9ea17b624f08",
+                            Id = "7bfc85cc-7762-4a6f-9af3-8e18cd55b97f",
                             Name = "admin",
                             NormalizedName = "admin"
                         },
                         new
                         {
-                            Id = "4d1ae411-d83c-4caf-ac49-963e708685be",
+                            Id = "f75caa48-c0a9-412b-9f15-b110e6bb386c",
                             Name = "client",
                             NormalizedName = "client"
                         });

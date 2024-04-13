@@ -311,8 +311,8 @@ namespace Library_Management.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "4d1ae411-d83c-4caf-ac49-963e708685be", null, "client", "client" },
-                    { "9c6fa4cf-9533-40b7-b5eb-9ea17b624f08", null, "admin", "admin" }
+                    { "7bfc85cc-7762-4a6f-9af3-8e18cd55b97f", null, "admin", "admin" },
+                    { "f75caa48-c0a9-412b-9f15-b110e6bb386c", null, "client", "client" }
                 });
 
             migrationBuilder.CreateIndex(

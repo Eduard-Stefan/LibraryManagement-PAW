@@ -10,23 +10,23 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Library_Management.Controllers
 {
-    //[Authorize(Roles = "admin")]
-    public class SubsidiariesController : Controller
+	//[Authorize(Roles = "admin")]
+    public class PublishersController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public SubsidiariesController(ApplicationDbContext context)
+        public PublishersController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Subsidiaries
+        // GET: Publishers
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Subsidiaries.ToListAsync());
+            return View(await _context.Publishers.ToListAsync());
         }
 
-        // GET: Subsidiaries/Details/5
+        // GET: Publishers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,39 +34,39 @@ namespace Library_Management.Controllers
                 return NotFound();
             }
 
-            var subsidiary = await _context.Subsidiaries
+            var publisher = await _context.Publishers
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (subsidiary == null)
+            if (publisher == null)
             {
                 return NotFound();
             }
 
-            return View(subsidiary);
+            return View(publisher);
         }
 
-        // GET: Subsidiaries/Create
+        // GET: Publishers/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Subsidiaries/Create
+        // POST: Publishers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Address")] Subsidiary subsidiary)
+        public async Task<IActionResult> Create([Bind("Id,Name,Address")] Publisher publisher)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(subsidiary);
+                _context.Add(publisher);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(subsidiary);
+            return View(publisher);
         }
 
-        // GET: Subsidiaries/Edit/5
+        // GET: Publishers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -74,22 +74,22 @@ namespace Library_Management.Controllers
                 return NotFound();
             }
 
-            var subsidiary = await _context.Subsidiaries.FindAsync(id);
-            if (subsidiary == null)
+            var publisher = await _context.Publishers.FindAsync(id);
+            if (publisher == null)
             {
                 return NotFound();
             }
-            return View(subsidiary);
+            return View(publisher);
         }
 
-        // POST: Subsidiaries/Edit/5
+        // POST: Publishers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Address")] Subsidiary subsidiary)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Address")] Publisher publisher)
         {
-            if (id != subsidiary.Id)
+            if (id != publisher.Id)
             {
                 return NotFound();
             }
@@ -98,12 +98,12 @@ namespace Library_Management.Controllers
             {
                 try
                 {
-                    _context.Update(subsidiary);
+                    _context.Update(publisher);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SubsidiaryExists(subsidiary.Id))
+                    if (!PublisherExists(publisher.Id))
                     {
                         return NotFound();
                     }
@@ -114,10 +114,10 @@ namespace Library_Management.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(subsidiary);
+            return View(publisher);
         }
 
-        // GET: Subsidiaries/Delete/5
+        // GET: Publishers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -125,34 +125,34 @@ namespace Library_Management.Controllers
                 return NotFound();
             }
 
-            var subsidiary = await _context.Subsidiaries
+            var publisher = await _context.Publishers
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (subsidiary == null)
+            if (publisher == null)
             {
                 return NotFound();
             }
 
-            return View(subsidiary);
+            return View(publisher);
         }
 
-        // POST: Subsidiaries/Delete/5
+        // POST: Publishers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var subsidiary = await _context.Subsidiaries.FindAsync(id);
-            if (subsidiary != null)
+            var publisher = await _context.Publishers.FindAsync(id);
+            if (publisher != null)
             {
-                _context.Subsidiaries.Remove(subsidiary);
+                _context.Publishers.Remove(publisher);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool SubsidiaryExists(int id)
+        private bool PublisherExists(int id)
         {
-            return _context.Subsidiaries.Any(e => e.Id == id);
+            return _context.Publishers.Any(e => e.Id == id);
         }
     }
 }
