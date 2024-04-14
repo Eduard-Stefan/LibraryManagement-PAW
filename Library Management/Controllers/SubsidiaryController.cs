@@ -16,19 +16,16 @@ namespace Library_Management.Controllers
 			_subsidiaryService = subsidiaryService;
 		}
 
-		// GET: Subsidiaries
 		public IActionResult Index()
 		{
 			return View(_subsidiaryService.FindAll());
 		}
 
-		// GET: Subsidiaries/Create
 		public IActionResult Create()
 		{
 			return View();
 		}
 
-		// POST: Subsidiaries/Create
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public IActionResult Create([Bind("Id,Name,Address")] Subsidiary subsidiary)
@@ -41,7 +38,6 @@ namespace Library_Management.Controllers
 			return View(subsidiary);
 		}
 
-		// GET: Subsidiaries/Edit/5
 		public IActionResult Edit(int? id)
 		{
 			if (id == null)
@@ -57,7 +53,6 @@ namespace Library_Management.Controllers
 			return View(subsidiary);
 		}
 
-		// POST: Subsidiaries/Edit/5
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public IActionResult Edit(int id, [Bind("Id,Name,Address")] Subsidiary subsidiary)
@@ -75,7 +70,6 @@ namespace Library_Management.Controllers
 			return View(subsidiary);
 		}
 
-		// GET: Subsidiaries/Delete/5
 		public IActionResult Delete(int? id)
 		{
 			if (id == null)
@@ -92,7 +86,6 @@ namespace Library_Management.Controllers
 			return View(subsidiary);
 		}
 
-		// POST: Subsidiaries/Delete/5
 		[HttpPost, ActionName("Delete")]
 		[ValidateAntiForgeryToken]
 		public IActionResult DeleteConfirmed(int id)
