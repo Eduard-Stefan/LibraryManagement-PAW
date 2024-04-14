@@ -1,4 +1,8 @@
 using Library_Management.Models;
+using Library_Management.Repositories.Interfaces;
+using Library_Management.Repositories;
+using Library_Management.Services;
+using Library_Management.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,6 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.Add(new ServiceDescriptor(typeof(ILog), new ConsoleLogger()));
+
+builder.Services.AddScoped<ISubsidiaryRepository, SubsidiaryRepository>();
+builder.Services.AddScoped<ISubsidiaryService, SubsidiaryService>();
+builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
