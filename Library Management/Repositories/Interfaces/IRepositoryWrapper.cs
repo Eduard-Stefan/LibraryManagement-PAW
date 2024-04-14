@@ -7,6 +7,7 @@ namespace Library_Management.Repositories.Interfaces
 		ISubsidiaryRepository SubsidiaryRepository { get; }
 		IBookRepository BookRepository { get; }
 		IUserRepository UserRepository { get; }
+		IAuthorRepository AuthorRepository { get; }
 
 		void Save();
 	}
