@@ -11,6 +11,7 @@ namespace Library_Management.Repositories
 		private IUserRepository? _userRepository;
 		private IAuthorRepository? _authorRepository;
 		private IPublisherRepository? _publisherRepository;
+		private IGenreRepository? _genreRepository;
 
 		public ISubsidiaryRepository SubsidiaryRepository
 		{
@@ -74,6 +75,19 @@ namespace Library_Management.Repositories
 				}
 
 				return _publisherRepository;
+			}
+		}
+
+		public IGenreRepository GenreRepository
+		{
+			get
+			{
+				if (_genreRepository == null)
+				{
+					_genreRepository = new GenreRepository(_applicationDbContext);
+				}
+
+				return _genreRepository;
 			}
 		}
 

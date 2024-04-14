@@ -9,6 +9,7 @@ namespace Library_Management.Repositories.Interfaces
 		IUserRepository UserRepository { get; }
 		IAuthorRepository AuthorRepository { get; }
 		IPublisherRepository PublisherRepository { get; }
+		IGenreRepository GenreRepository { get; }
 
 		void Save();
 	}
