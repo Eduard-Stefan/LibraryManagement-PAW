@@ -10,6 +10,7 @@ namespace Library_Management.Repositories
 		private IBookRepository? _bookRepository;
 		private IUserRepository? _userRepository;
 		private IAuthorRepository? _authorRepository;
+		private IPublisherRepository? _publisherRepository;
 
 		public ISubsidiaryRepository SubsidiaryRepository
 		{
@@ -60,6 +61,19 @@ namespace Library_Management.Repositories
 				}
 
 				return _authorRepository;
+			}
+		}
+
+		public IPublisherRepository PublisherRepository
+		{
+			get
+			{
+				if (_publisherRepository == null)
+				{
+					_publisherRepository = new PublisherRepository(_applicationDbContext);
+				}
+
+				return _publisherRepository;
 			}
 		}
 
