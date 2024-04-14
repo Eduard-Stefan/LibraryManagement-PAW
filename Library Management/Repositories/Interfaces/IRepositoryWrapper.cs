@@ -10,6 +10,7 @@ namespace Library_Management.Repositories.Interfaces
 		IAuthorRepository AuthorRepository { get; }
 		IPublisherRepository PublisherRepository { get; }
 		IGenreRepository GenreRepository { get; }
+		IBookSubsidiaryRepository BookSubsidiaryRepository { get; }
 
 		void Save();
 	}
