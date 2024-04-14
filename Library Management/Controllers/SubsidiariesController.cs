@@ -26,24 +26,6 @@ namespace Library_Management.Controllers
             return View(await _context.Subsidiaries.ToListAsync());
         }
 
-        // GET: Subsidiaries/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var subsidiary = await _context.Subsidiaries
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (subsidiary == null)
-            {
-                return NotFound();
-            }
-
-            return View(subsidiary);
-        }
-
         // GET: Subsidiaries/Create
         public IActionResult Create()
         {

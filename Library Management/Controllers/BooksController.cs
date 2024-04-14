@@ -28,27 +28,6 @@ namespace Library_Management.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Books/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var book = await _context.Books
-                .Include(b => b.Author)
-                .Include(b => b.Genre)
-                .Include(b => b.Publisher)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (book == null)
-            {
-                return NotFound();
-            }
-
-            return View(book);
-        }
-
         // GET: Books/Create
         public IActionResult Create()
         {

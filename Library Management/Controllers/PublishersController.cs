@@ -26,24 +26,6 @@ namespace Library_Management.Controllers
             return View(await _context.Publishers.ToListAsync());
         }
 
-        // GET: Publishers/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var publisher = await _context.Publishers
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (publisher == null)
-            {
-                return NotFound();
-            }
-
-            return View(publisher);
-        }
-
         // GET: Publishers/Create
         public IActionResult Create()
         {

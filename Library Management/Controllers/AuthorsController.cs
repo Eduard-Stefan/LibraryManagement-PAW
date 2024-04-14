@@ -26,24 +26,6 @@ namespace Library_Management.Controllers
             return View(await _context.Authors.ToListAsync());
         }
 
-        // GET: Authors/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var author = await _context.Authors
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (author == null)
-            {
-                return NotFound();
-            }
-
-            return View(author);
-        }
-
         // GET: Authors/Create
         public IActionResult Create()
         {
