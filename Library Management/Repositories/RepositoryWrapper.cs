@@ -7,6 +7,7 @@ namespace Library_Management.Repositories
 	{
 		private ApplicationDbContext _applicationDbContext;
 		private ISubsidiaryRepository? _subsidiaryRepository;
+		private IBookRepository? _bookRepository;
 
 		public ISubsidiaryRepository SubsidiaryRepository
 		{
@@ -18,6 +19,19 @@ namespace Library_Management.Repositories
 				}
 
 				return _subsidiaryRepository;
+			}
+		}
+
+		public IBookRepository BookRepository
+		{
+			get
+			{
+				if (_bookRepository == null)
+				{
+					_bookRepository = new BookRepository(_applicationDbContext);
+				}
+
+				return _bookRepository;
 			}
 		}
 

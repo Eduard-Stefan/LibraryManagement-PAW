@@ -12,9 +12,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.Add(new ServiceDescriptor(typeof(ILog), new ConsoleLogger()));
 
+builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+
 builder.Services.AddScoped<ISubsidiaryRepository, SubsidiaryRepository>();
 builder.Services.AddScoped<ISubsidiaryService, SubsidiaryService>();
-builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<IBookService, BookService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {

@@ -3,6 +3,7 @@
 	public interface IRepositoryWrapper
 	{
 		ISubsidiaryRepository SubsidiaryRepository { get; }
+		IBookRepository BookRepository { get; }
 
 		void Save();
 	}
