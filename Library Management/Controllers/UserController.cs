@@ -93,5 +93,10 @@ namespace Library_Management.Controllers
 			}
 			return RedirectToAction(nameof(Index));
 		}
+
+		public IActionResult UnwelcomeUsers()
+		{
+			return View(_userService.UnwelcomeUsers());
+		}
 	}
 }

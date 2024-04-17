@@ -8,5 +8,6 @@ namespace Library_Management.Services.Interfaces
 		User? FindById(string id);
 		void Update(User user);
 		void Delete(User user);
+		List<User> UnwelcomeUsers();
 	}
 }

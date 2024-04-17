@@ -34,5 +34,10 @@ namespace Library_Management.Services
 			_repositoryWrapper.UserRepository.Delete(user);
 			_repositoryWrapper.Save();
 		}
+
+		public List<User> UnwelcomeUsers()
+		{
+			return _repositoryWrapper.UserRepository.UnwelcomeUsers().ToList();
+		}
 	}
 }

@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Library_Management.Models.User>
+
+@{
+	ViewData["Title"] = "Unwelcome Users";
+}
+
+<h2 class="text-center mb-5">Unwelcome Users</h2>
+
+<table class="table">
+	<tr>
+		<th>Name</th>
+		<th>Email</th>
+		<th>Address</th>
+		<th>Phone</th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Name)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Email)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Address)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.PhoneNumber)
+			</td>
+		</tr>
+	}
+</table>
