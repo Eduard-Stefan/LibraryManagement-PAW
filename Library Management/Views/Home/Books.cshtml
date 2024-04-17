@@ -62,8 +62,8 @@
 					<div class="card-body">
 						<h5 class="card-title">@item.Title</h5>
 						<div class="button-container">
-							<a class="btn btn-outline-primary btn-block" href="/Borrow?id=@item.Id">Borrow</a> @* TODO: modify href *@
-							<a class="btn btn-outline-secondary btn-block" href="/Details?id=@item.Id">Details</a> @* TODO: modify href *@
+							<a class="btn btn-outline-primary btn-block" asp-action="Borrow" asp-route-id="@item.Id">Borrow</a>
+							<a class="btn btn-outline-secondary btn-block" asp-action="Details" asp-route-id="@item.Id">Details</a>
 						</div>
 					</div>
 				</div>

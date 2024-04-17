@@ -2,18 +2,21 @@ using Library_Management.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
+using Library_Management.Services.Interfaces;
 
 namespace Library_Management.Controllers
 {
 	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
-		private readonly ApplicationDbContext _context;
+		private readonly IBookService _bookService;
+		private readonly ISubsidiaryService _subsidiaryService;
 
-		public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
+		public HomeController(ILogger<HomeController> logger, IBookService bookService, ISubsidiaryService subsidiaryService)
 		{
 			_logger = logger;
-			_context = context;
+			_bookService = bookService;
+			_subsidiaryService = subsidiaryService;
 		}
 
 		public IActionResult Index()
@@ -26,15 +29,34 @@ namespace Library_Management.Controllers
 			return View();
 		}
 
-		public async Task<IActionResult> Books()
+		public IActionResult Books()
 		{
-			var applicationDbContext = _context.Books.Include(b => b.Author).Include(b => b.Genre).Include(b => b.Publisher);
-			return View(await applicationDbContext.ToListAsync());
+			return View(_bookService.FindAll());
 		}
 
-		public async Task<IActionResult> Subsidiaries()
+		public IActionResult Subsidiaries()
 		{
-			return View(await _context.Subsidiaries.ToListAsync());
+			return View(_subsidiaryService.FindAll());
+		}
+
+		public IActionResult Borrow(int id)
+		{
+			return View();
+		}
+
+		public IActionResult Details(int? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
+
+			var book = _bookService.FindById(id.Value);
+			if (book == null)
+			{
+				return NotFound();
+			}
+			return View(book);
 		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
