@@ -1,0 +1,32 @@
+﻿@model LoginViewModel
+
+<div class="row">
+	<div class="col-md-4 mx-auto rounded border p-3">
+		<section>
+			<h2 class="text-center mb-3">Log In</h2>
+			<hr />
+			<div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+			<form asp-action="Index" asp-controller="Login" method="post">
+				<div class="mb-3">
+					<label class="form-label">Email</label>
+					<input asp-for="Email" class="form-control"/>
+					<span asp-validation-for="Email" class="text-danger"></span>
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Password</label>
+					<input asp-for="Password" class="form-control"/>
+					<span asp-validation-for="Password" class="text-danger"></span>
+				</div>
+				<div class="checkbox mb-3">
+					<label asp-for="RememberMe" class="form-label">
+						<input asp-for="RememberMe" class="form-check-input"/>
+						@Html.DisplayNameFor(m => m.RememberMe)
+					</label>
+				</div>
+				<div>
+					<button type="submit" class="btn btn-lg btn-primary">Log in</button>
+				</div>
+			</form>
+		</section>
+	</div>
+</div>

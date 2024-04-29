@@ -38,6 +38,8 @@ builder.Services.AddScoped<IBookSubsidiaryService, BookSubsidiaryService>();
 builder.Services.AddScoped<IBorrowedBookRepository, BorrowedBookRepository>();
 builder.Services.AddScoped<IBorrowedBookService, BorrowedBookService>();
 
+builder.Services.AddScoped<ILoginService, LoginService>();
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
 	var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
