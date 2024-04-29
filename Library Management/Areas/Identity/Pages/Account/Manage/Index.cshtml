@@ -8,6 +8,15 @@
 <h3>@ViewData["Title"]</h3>
 <partial name="_StatusMessage" for="StatusMessage" />
 
+@if (!string.IsNullOrEmpty(Model.user?.ImageFileName))
+{
+	<div><img src="~/profile-images/@Model.user.ImageFileName" alt="Profile Picture" width="100" height="100" /></div>
+}
+else
+{
+	<div><img src="~/profile-images/user.png" alt="Default Profile Picture" width="100" height="100" /></div>
+}
+
 <div>
 	Name: @Model.user?.Name
 </div>

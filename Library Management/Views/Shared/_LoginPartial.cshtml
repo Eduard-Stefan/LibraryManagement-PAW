@@ -98,8 +98,13 @@
 			</li>
 		}
 		<li class="nav-item">
-			<img src="/profile-images/@UserManager.GetUserAsync(User).Result.ImageFileName" alt="Profile Picture" class="rounded-circle mx-2" style="width: 40px; height: 40px;">
+			@{
+				var user = await UserManager.GetUserAsync(User);
+				var imageUrl = user != null ? $"/profile-images/{user.ImageFileName}" : "/profile-images/default.png";
+			}
+			<img src="@imageUrl" alt="Profile Picture" class="rounded-circle mx-2" style="width: 40px; height: 40px;">
 		</li>
+
 	}
 	else
 	{
