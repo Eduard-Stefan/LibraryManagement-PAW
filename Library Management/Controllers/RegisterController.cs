@@ -27,6 +27,7 @@ namespace Library_Management.Controllers
 				var result = await _registerService.RegisterAsync(model);
 				if (result.Succeeded)
 				{
+					TempData["SuccessMessage"] = "Registration successful!";
 					return RedirectToAction("Index", "Home");
 				}
 				foreach (var error in result.Errors)

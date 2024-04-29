@@ -28,6 +28,7 @@ namespace Library_Management.Controllers
 				var result = await _loginService.SignInAsync(model.Email, model.Password, model.RememberMe);
 				if (result.Succeeded)
 				{
+					TempData["SuccessMessage"] = "Login successful!";
 					return RedirectToAction("Index", "Home");
 				}
 				ModelState.AddModelError(string.Empty, "Invalid login attempt.");
