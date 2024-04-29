@@ -1,8 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-#nullable disable
-
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -28,62 +24,21 @@ namespace Library_Management.Areas.Identity.Pages.Account.Manage
             _signInManager = signInManager;
         }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
-        public string Username { get; set; }
-
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         [TempData]
         public string StatusMessage { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
-        [BindProperty]
-        public InputModel Input { get; set; }
-
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
-        public class InputModel
+        public async Task<IActionResult> OnGetAsync()
         {
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Phone]
-            [Display(Name = "Phone number")]
-            public string PhoneNumber { get; set; }
-        }
-
-        private async Task LoadAsync(User user)
-        {
-            var userName = await _userManager.GetUserNameAsync(user);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-
-            Username = userName;
-
-            Input = new InputModel
+            user = await _userManager.GetUserAsync(User);
+            if (user == null)
             {
-                PhoneNumber = phoneNumber
-            };
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            return Page();
         }
 
-        public void OnGet()
-        {
-	        var task = _userManager.GetUserAsync(User);
-	        task.Wait();
-	        user = task.Result;
-        }
-
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostUploadImageAsync()
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -91,25 +46,30 @@ namespace Library_Management.Areas.Identity.Pages.Account.Manage
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            if (!ModelState.IsValid)
+            var imageFile = Request.Form.Files["ImageFile"];
+            if (imageFile != null && imageFile.Length > 0)
             {
-                await LoadAsync(user);
-                return Page();
-            }
-
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            if (Input.PhoneNumber != phoneNumber)
-            {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
+                // Save the image file
+                var fileName = $"{Guid.NewGuid()}{System.IO.Path.GetExtension(imageFile.FileName)}";
+                var imagePath = System.IO.Path.Combine("wwwroot", "profile-images", fileName);
+                using (var fileStream = new System.IO.FileStream(imagePath, System.IO.FileMode.Create))
                 {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
-                    return RedirectToPage();
+                    await imageFile.CopyToAsync(fileStream);
+                }
+
+                // Update the user's profile picture
+                user.ImageFileName = fileName;
+                var result = await _userManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    StatusMessage = "Profile picture updated successfully.";
+                }
+                else
+                {
+                    StatusMessage = "Error updating profile picture.";
                 }
             }
 
-            await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
             return RedirectToPage();
         }
     }
