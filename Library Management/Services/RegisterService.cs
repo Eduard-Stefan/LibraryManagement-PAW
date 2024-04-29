@@ -40,7 +40,8 @@ public class RegisterService : IRegisterService
 			UserName = model.Email,
 			Email = model.Email,
 			PhoneNumber = model.PhoneNumber,
-			Address = model.Address
+			Address = model.Address,
+			ImageFileName = model.ImageFileName
 		};
 
 		var result = await _userManager.CreateAsync(user, model.Password);

@@ -36,6 +36,7 @@ namespace Library_Management.Migrations
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsWelcome = table.Column<bool>(type: "bit", nullable: false),
+                    ImageFileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -311,8 +312,8 @@ namespace Library_Management.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "7bfc85cc-7762-4a6f-9af3-8e18cd55b97f", null, "admin", "admin" },
-                    { "f75caa48-c0a9-412b-9f15-b110e6bb386c", null, "client", "client" }
+                    { "914d1ad8-4d90-4907-b563-2ca4e95533b0", null, "admin", "admin" },
+                    { "e885a632-8972-4dcf-abf1-82267f96b2eb", null, "client", "client" }
                 });
 
             migrationBuilder.CreateIndex(

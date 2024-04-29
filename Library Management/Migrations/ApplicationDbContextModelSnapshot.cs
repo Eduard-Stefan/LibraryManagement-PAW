@@ -220,6 +220,10 @@ namespace Library_Management.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("ImageFileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsWelcome")
                         .HasColumnType("bit");
 
@@ -303,13 +307,13 @@ namespace Library_Management.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7bfc85cc-7762-4a6f-9af3-8e18cd55b97f",
+                            Id = "914d1ad8-4d90-4907-b563-2ca4e95533b0",
                             Name = "admin",
                             NormalizedName = "admin"
                         },
                         new
                         {
-                            Id = "f75caa48-c0a9-412b-9f15-b110e6bb386c",
+                            Id = "e885a632-8972-4dcf-abf1-82267f96b2eb",
                             Name = "client",
                             NormalizedName = "client"
                         });

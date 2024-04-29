@@ -4,6 +4,9 @@ namespace Library_Management.Models;
 
 public class RegisterViewModel
 {
+	public string ImageFileName { get; set; } = "";
+	public IFormFile? ImageFile { get; set; }
+
 	[Required]
 	public string Name { get; set; }
 

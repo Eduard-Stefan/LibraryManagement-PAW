@@ -1,4 +1,5 @@
 ﻿using Library_Management.Models;
+using Library_Management.Services;
 using Library_Management.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,10 +8,12 @@ namespace Library_Management.Controllers
 	public class RegisterController : Controller
 	{
 		private readonly IRegisterService _registerService;
+		private readonly IWebHostEnvironment _environment;
 
-		public RegisterController(IRegisterService registerService)
+		public RegisterController(IRegisterService registerService, IWebHostEnvironment environment)
 		{
 			_registerService = registerService;
+			_environment = environment;
 		}
 
 		[HttpGet]
@@ -24,6 +27,21 @@ namespace Library_Management.Controllers
 		{
 			if (ModelState.IsValid)
 			{
+				string newFileName = "default.png";
+				if (model.ImageFile != null)
+				{
+					newFileName = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+					newFileName += Path.GetExtension(model.ImageFile!.FileName);
+
+					string imageFullPath = _environment.WebRootPath + "/profile-images/" + newFileName;
+					using (var stream = System.IO.File.Create(imageFullPath))
+					{
+						model.ImageFile.CopyTo(stream);
+					}
+				}
+
+				model.ImageFileName = newFileName;
+
 				var result = await _registerService.RegisterAsync(model);
 				if (result.Succeeded)
 				{
