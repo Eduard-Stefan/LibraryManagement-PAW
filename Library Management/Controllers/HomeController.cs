@@ -11,12 +11,16 @@ namespace Library_Management.Controllers
 		private readonly ILogger<HomeController> _logger;
 		private readonly IBookService _bookService;
 		private readonly ISubsidiaryService _subsidiaryService;
+		private readonly IBookSubsidiaryService _bookSubsidiaryService;
+		private readonly IBorrowedBookService _borrowedBookService;
 
-		public HomeController(ILogger<HomeController> logger, IBookService bookService, ISubsidiaryService subsidiaryService)
+		public HomeController(ILogger<HomeController> logger, IBookService bookService, ISubsidiaryService subsidiaryService, IBookSubsidiaryService bookSubsidiaryService, IBorrowedBookService borrowedBookService)
 		{
 			_logger = logger;
 			_bookService = bookService;
 			_subsidiaryService = subsidiaryService;
+			_bookSubsidiaryService = bookSubsidiaryService;
+			_borrowedBookService = borrowedBookService;
 		}
 
 		public IActionResult Index()
@@ -39,9 +43,38 @@ namespace Library_Management.Controllers
 			return View(_subsidiaryService.FindAll());
 		}
 
+		[HttpGet]
 		public IActionResult Borrow(int id)
 		{
-			return View();
+			return View(_bookSubsidiaryService.FindByBookIdAndQuantityGreaterThanZero(id));
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public IActionResult Borrow(int id, int subsidiaryId)
+		{
+			var bookSubsidiary = _bookSubsidiaryService.FindByBookIdAndSubsidiaryId(id, subsidiaryId);
+			if (bookSubsidiary == null)
+			{
+				return NotFound();
+			}
+			bookSubsidiary.Quantity--;
+			_bookSubsidiaryService.Update(bookSubsidiary);
+
+			var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+			var bookSubsidiaryId = bookSubsidiary.Id;
+			var borrowedDate = DateTime.Now;
+			var returnDate = borrowedDate.AddDays(30);
+			BorrowedBook borrowedBook = new BorrowedBook
+			{
+				UserId = userId,
+				BookSubsidiaryId = bookSubsidiaryId,
+				BorrowedDate = borrowedDate,
+				ReturnDate = returnDate
+			};
+			_borrowedBookService.Create(borrowedBook);
+
+			return RedirectToAction("Books");
 		}
 
 		public IActionResult Details(int? id)

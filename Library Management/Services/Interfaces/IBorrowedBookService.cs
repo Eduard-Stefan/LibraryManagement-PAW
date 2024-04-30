@@ -6,6 +6,8 @@ namespace Library_Management.Services.Interfaces
 	{
 		List<BorrowedBook> FindAll();
 		BorrowedBook? FindById(int id);
+		void Create(BorrowedBook borrowedBook);
+		void Update(BorrowedBook borrowedBook);
 		void Delete(BorrowedBook borrowedBook);
 	}
 }

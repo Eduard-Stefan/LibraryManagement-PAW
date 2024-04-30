@@ -1,4 +1,5 @@
 ﻿using Library_Management.Models;
+using Library_Management.Repositories;
 using Library_Management.Repositories.Interfaces;
 using Library_Management.Services.Interfaces;
 
@@ -21,6 +22,18 @@ namespace Library_Management.Services
 		public BorrowedBook? FindById(int id)
 		{
 			return _repositoryWrapper.BorrowedBookRepository.FindByCondition(e => e.Id == id).FirstOrDefault();
+		}
+
+		public void Create(BorrowedBook borrowedBook)
+		{
+			_repositoryWrapper.BorrowedBookRepository.Create(borrowedBook);
+			_repositoryWrapper.Save();
+		}
+
+		public void Update(BorrowedBook borrowedBook)
+		{
+			_repositoryWrapper.BorrowedBookRepository.Update(borrowedBook);
+			_repositoryWrapper.Save();
 		}
 
 		public void Delete(BorrowedBook borrowedBook)

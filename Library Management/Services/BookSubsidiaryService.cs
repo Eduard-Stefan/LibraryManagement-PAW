@@ -23,6 +23,16 @@ namespace Library_Management.Services
 			return _repositoryWrapper.BookSubsidiaryRepository.FindByCondition(e => e.Id == id).FirstOrDefault();
 		}
 
+		public BookSubsidiary? FindByBookIdAndSubsidiaryId(int bookId, int subsidiaryId)
+		{
+			return _repositoryWrapper.BookSubsidiaryRepository.FindByCondition(e => e.BookId == bookId && e.SubsidiaryId == subsidiaryId).FirstOrDefault();
+		}
+
+		public List<BookSubsidiary> FindByBookIdAndQuantityGreaterThanZero(int bookId)
+		{
+			return _repositoryWrapper.BookSubsidiaryRepository.FindByCondition(e => e.BookId == bookId && e.Quantity > 0).ToList();
+		}
+
 		public void Create(BookSubsidiary bookSubsidiary)
 		{
 			_repositoryWrapper.BookSubsidiaryRepository.Create(bookSubsidiary);

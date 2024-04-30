@@ -44,6 +44,8 @@ namespace Library_Management.Controllers
 			var borrowedBook = _borrowedBookService.FindById(id);
 			if (borrowedBook != null)
 			{
+				borrowedBook.BookSubsidiary.Quantity++;
+				_borrowedBookService.Update(borrowedBook);
 				_borrowedBookService.Delete(borrowedBook);
 			}
 			return RedirectToAction(nameof(Index));
