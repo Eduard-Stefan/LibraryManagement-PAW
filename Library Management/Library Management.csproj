@@ -22,6 +22,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\background\" />
     <Folder Include="wwwroot\books\" />
+    <Folder Include="wwwroot\profile-images\" />
   </ItemGroup>
 
 </Project>

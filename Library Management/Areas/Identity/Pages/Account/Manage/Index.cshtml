@@ -36,11 +36,17 @@ else
 </div>
 <br>
 <div>
-	<form method="post" enctype="multipart/form-data" asp-page-handler="UploadImage">
+	<form method="post" enctype="multipart/form-data" asp-page-handler="UploadImage" class="d-inline">
 		<div class="mb-3">
 			<label for="profileImage" class="form-label">Update Profile Picture:</label>
 			<input type="file" class="form-control" id="profileImage" name="ImageFile">
 		</div>
 		<button type="submit" class="btn btn-primary">Save</button>
 	</form>
+	@if (!string.IsNullOrEmpty(Model.user?.ImageFileName) && Model.user?.ImageFileName != "default.png")
+	{
+		<form method="post" asp-page-handler="RemoveImage" class="d-inline">
+			<button type="submit" class="btn btn-danger">Remove</button>
+		</form>
+	}
 </div>
