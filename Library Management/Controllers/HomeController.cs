@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Library_Management.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Library_Management.Controllers
 {
@@ -48,7 +49,8 @@ namespace Library_Management.Controllers
 		{
 			return View(_bookSubsidiaryService.FindByBookIdAndQuantityGreaterThanZero(id));
 		}
-
+		
+		[Authorize]
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public IActionResult Borrow(int id, int subsidiaryId)

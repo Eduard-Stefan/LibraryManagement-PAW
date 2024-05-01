@@ -6,41 +6,30 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
-@if (SignInManager.IsSignedIn(User))
+@if (Model.Any())
 {
-	@if (Model.Any())
-	{
-		<form method="post">
-			<div class="form-group">
-				<label for="subsidaryId" class="mb-2" style="display: inline-block; width: 50%;">Select the subsidiary from which you want to borrow the book:</label>
-				<select class="form-control" id="subsidaryId" name="subsidiaryId" style="width: 50%;">
-					@foreach (var booksubsidiary in Model)
-					{
-						<option value="@booksubsidiary.SubsidiaryId">@booksubsidiary.Subsidiary.Name</option>
-					}
-				</select>
+	<form method="post">
+		<div class="form-group">
+			<label for="subsidaryId" class="mb-2" style="display: inline-block; width: 50%;">Select the subsidiary from which you want to borrow the book:</label>
+			<select class="form-control" id="subsidaryId" name="subsidiaryId" style="width: 50%;">
+				@foreach (var booksubsidiary in Model)
+				{
+					<option value="@booksubsidiary.SubsidiaryId">@booksubsidiary.Subsidiary.Name</option>
+				}
+			</select>
 
-			</div>
-
-			<div class="form-group mt-3">
-				<button type="submit" class="btn btn-primary">Borrow</button>
-				<a class="btn btn-outline-primary" asp-action="Books" role="button">Back</a>
-			</div>
-		</form>
-
-	}
-	else
-	{
-		<div class="alert alert-warning" role="alert">
-			This book is not available at any subsidiary at the moment.
 		</div>
-		<a class="btn btn-outline-primary" asp-action="Books" role="button">Back</a>
-	}
+
+		<div class="form-group mt-3">
+			<button type="submit" class="btn btn-primary">Borrow</button>
+			<a class="btn btn-outline-primary" asp-action="Books" role="button">Back</a>
+		</div>
+	</form>
 }
 else
 {
-	<div class="alert alert-danger" role="alert">
-		You need to be logged in to borrow a book.
+	<div class="alert alert-warning" role="alert">
+		This book is not available at any subsidiary at the moment.
 	</div>
 	<a class="btn btn-outline-primary" asp-action="Books" role="button">Back</a>
 }
