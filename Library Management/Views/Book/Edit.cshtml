@@ -19,21 +19,21 @@
 			<div class="row mb-3">
 				<label class="col-sm-4 col-form-label">Author Id</label>
 				<div class="col-sm-8">
-					<input class="form-control" asp-for="AuthorId">
+					<select class="form-control" asp-for="AuthorId" asp-items="ViewBag.AuthorId"></select>
 					<span asp-validation-for="AuthorId" class="text-danger"></span>
 				</div>
 			</div>
 			<div class="row mb-3">
 				<label class="col-sm-4 col-form-label">Publisher Id</label>
 				<div class="col-sm-8">
-					<input class="form-control" asp-for="PublisherId">
+					<select class="form-control" asp-for="PublisherId" asp-items="ViewBag.PublisherId"></select>
 					<span asp-validation-for="PublisherId" class="text-danger"></span>
 				</div>
 			</div>
 			<div class="row mb-3">
 				<label class="col-sm-4 col-form-label">Genre Id</label>
 				<div class="col-sm-8">
-					<input class="form-control" asp-for="GenreId">
+					<select class="form-control" asp-for="GenreId" asp-items="ViewBag.GenreId"></select>
 					<span asp-validation-for="GenreId" class="text-danger"></span>
 				</div>
 			</div>

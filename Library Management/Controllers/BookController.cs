@@ -3,6 +3,7 @@ using Library_Management.Repositories.Interfaces;
 using Library_Management.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Library_Management.Controllers
 {
@@ -10,12 +11,18 @@ namespace Library_Management.Controllers
 	public class BookController : Controller
 	{
 		private readonly IBookService _bookService;
+		private readonly IAuthorService _authorService;
+		private readonly IPublisherService _publisherService;
+		private readonly IGenreService _genreService;
 		private readonly IWebHostEnvironment _environment;
 
-		public BookController(IBookService bookService, IWebHostEnvironment environment)
+		public BookController(IBookService bookService, IWebHostEnvironment environment, IAuthorService authorService, IPublisherService publisherService, IGenreService genreService)
 		{
 			_bookService = bookService;
 			_environment = environment;
+			_authorService = authorService;
+			_publisherService = publisherService;
+			_genreService = genreService;
 		}
 
 		public IActionResult Index()
@@ -25,6 +32,10 @@ namespace Library_Management.Controllers
 
 		public IActionResult Create()
 		{
+			ViewData["AuthorId"] = new SelectList(_authorService.FindAll(), "Id", "Name");
+			ViewData["PublisherId"] = new SelectList(_publisherService.FindAll(), "Id", "Name");
+			ViewData["GenreId"] = new SelectList(_genreService.FindAll(), "Id", "Name");
+
 			return View();
 		}
 
@@ -32,6 +43,10 @@ namespace Library_Management.Controllers
 		[ValidateAntiForgeryToken]
 		public IActionResult Create([Bind("Id,Title,AuthorId,PublisherId,GenreId,ImageFileName,ImageFile")] Book book)
 		{
+			ViewData["AuthorId"] = new SelectList(_authorService.FindAll(), "Id", "Name");
+			ViewData["PublisherId"] = new SelectList(_publisherService.FindAll(), "Id", "Name");
+			ViewData["GenreId"] = new SelectList(_genreService.FindAll(), "Id", "Name");
+
 			if (book.ImageFile == null)
 			{
 				ModelState.AddModelError("ImageFile", "The ImageFile field is required.");
@@ -67,6 +82,11 @@ namespace Library_Management.Controllers
 			{
 				return NotFound();
 			}
+
+			ViewData["AuthorId"] = new SelectList(_authorService.FindAll(), "Id", "Name");
+			ViewData["PublisherId"] = new SelectList(_publisherService.FindAll(), "Id", "Name");
+			ViewData["GenreId"] = new SelectList(_genreService.FindAll(), "Id", "Name");
+
 			return View(book);
 		}
 
@@ -74,6 +94,10 @@ namespace Library_Management.Controllers
 		[ValidateAntiForgeryToken]
 		public IActionResult Edit(int id, [Bind("Id,Title,AuthorId,PublisherId,GenreId,ImageFileName,ImageFile")] Book book)
 		{
+			ViewData["AuthorId"] = new SelectList(_authorService.FindAll(), "Id", "Name");
+			ViewData["PublisherId"] = new SelectList(_publisherService.FindAll(), "Id", "Name");
+			ViewData["GenreId"] = new SelectList(_genreService.FindAll(), "Id", "Name");
+
 			if (id != book.Id)
 			{
 				return NotFound();

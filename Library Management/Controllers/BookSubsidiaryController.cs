@@ -3,6 +3,7 @@ using Library_Management.Repositories.Interfaces;
 using Library_Management.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Library_Management.Controllers
 {
@@ -10,10 +11,14 @@ namespace Library_Management.Controllers
 	public class BookSubsidiaryController : Controller
 	{
 		private readonly IBookSubsidiaryService _bookSubsidiaryService;
+		private readonly IBookService _bookService;
+		private readonly ISubsidiaryService _subsidiaryService;
 
-		public BookSubsidiaryController(IBookSubsidiaryService bookSubsidiaryService)
+		public BookSubsidiaryController(IBookSubsidiaryService bookSubsidiaryService, IBookService bookService, ISubsidiaryService subsidiaryService)
 		{
 			_bookSubsidiaryService = bookSubsidiaryService;
+			_bookService = bookService;
+			_subsidiaryService = subsidiaryService;
 		}
 
 		public IActionResult Index()
@@ -23,6 +28,9 @@ namespace Library_Management.Controllers
 
 		public IActionResult Create()
 		{
+			ViewData["BookId"] = new SelectList(_bookService.FindAll(), "Id", "Title");
+			ViewData["SubsidiaryId"] = new SelectList(_subsidiaryService.FindAll(), "Id", "Name");
+
 			return View();
 		}
 
@@ -30,6 +38,9 @@ namespace Library_Management.Controllers
 		[ValidateAntiForgeryToken]
 		public IActionResult Create([Bind("Id,Quantity,BookId,SubsidiaryId")] BookSubsidiary bookSubsidiary)
 		{
+			ViewData["BookId"] = new SelectList(_bookService.FindAll(), "Id", "Title");
+			ViewData["SubsidiaryId"] = new SelectList(_subsidiaryService.FindAll(), "Id", "Name");
+
 			if (ModelState.IsValid)
 			{
 				_bookSubsidiaryService.Create(bookSubsidiary);
@@ -40,6 +51,9 @@ namespace Library_Management.Controllers
 
 		public IActionResult Edit(int? id)
 		{
+			ViewData["BookId"] = new SelectList(_bookService.FindAll(), "Id", "Title");
+			ViewData["SubsidiaryId"] = new SelectList(_subsidiaryService.FindAll(), "Id", "Name");
+
 			if (id == null)
 			{
 				return NotFound();
@@ -57,6 +71,9 @@ namespace Library_Management.Controllers
 		[ValidateAntiForgeryToken]
 		public IActionResult Edit(int id, [Bind("Id,Quantity,BookId,SubsidiaryId")] BookSubsidiary bookSubsidiary)
 		{
+			ViewData["BookId"] = new SelectList(_bookService.FindAll(), "Id", "Title");
+			ViewData["SubsidiaryId"] = new SelectList(_subsidiaryService.FindAll(), "Id", "Name");
+
 			if (id != bookSubsidiary.Id)
 			{
 				return NotFound();
