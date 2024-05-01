@@ -19,6 +19,11 @@ namespace Library_Management.Services
 			return _repositoryWrapper.BorrowedBookRepository.FindAll().ToList();
 		}
 
+		public List<BorrowedBook> FindAllByUserId(string userId)
+		{
+			return _repositoryWrapper.BorrowedBookRepository.FindByCondition(e => e.UserId == userId).ToList();
+		}
+
 		public BorrowedBook? FindById(int id)
 		{
 			return _repositoryWrapper.BorrowedBookRepository.FindByCondition(e => e.Id == id).FirstOrDefault();

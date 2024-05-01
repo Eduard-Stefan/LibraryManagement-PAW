@@ -52,6 +52,11 @@ builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfi
 	.AddRoles<IdentityRole>()
 	.AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+	options.LoginPath = "/Login";
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

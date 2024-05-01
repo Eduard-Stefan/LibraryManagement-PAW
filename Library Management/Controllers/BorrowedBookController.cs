@@ -3,10 +3,10 @@ using Library_Management.Repositories.Interfaces;
 using Library_Management.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 
 namespace Library_Management.Controllers
 {
-	[Authorize(Roles = "admin")]
 	public class BorrowedBookController : Controller
 	{
 		private readonly IBorrowedBookService _borrowedBookService;
@@ -16,11 +16,13 @@ namespace Library_Management.Controllers
 			_borrowedBookService = borrowedBookService;
 		}
 
+		[Authorize(Roles = "admin")]
 		public IActionResult Index()
 		{
 			return View(_borrowedBookService.FindAll());
 		}
 
+		[Authorize(Roles = "admin")]
 		public IActionResult Delete(int? id)
 		{
 			if (id == null)
@@ -37,6 +39,7 @@ namespace Library_Management.Controllers
 			return View(borrowedBook);
 		}
 
+		[Authorize(Roles = "admin")]
 		[HttpPost, ActionName("Delete")]
 		[ValidateAntiForgeryToken]
 		public IActionResult DeleteConfirmed(int id)
@@ -49,6 +52,13 @@ namespace Library_Management.Controllers
 				_borrowedBookService.Delete(borrowedBook);
 			}
 			return RedirectToAction(nameof(Index));
+		}
+
+		[Authorize]
+		public IActionResult MyBorrowedBooks()
+		{
+			var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+			return View(_borrowedBookService.FindAllByUserId(userId));
 		}
 	}
 }
