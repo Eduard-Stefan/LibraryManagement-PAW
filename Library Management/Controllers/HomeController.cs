@@ -14,14 +14,16 @@ namespace Library_Management.Controllers
 		private readonly ISubsidiaryService _subsidiaryService;
 		private readonly IBookSubsidiaryService _bookSubsidiaryService;
 		private readonly IBorrowedBookService _borrowedBookService;
+		private readonly IUserService _userService;
 
-		public HomeController(ILogger<HomeController> logger, IBookService bookService, ISubsidiaryService subsidiaryService, IBookSubsidiaryService bookSubsidiaryService, IBorrowedBookService borrowedBookService)
+		public HomeController(ILogger<HomeController> logger, IBookService bookService, ISubsidiaryService subsidiaryService, IBookSubsidiaryService bookSubsidiaryService, IBorrowedBookService borrowedBookService, IUserService userService)
 		{
 			_logger = logger;
 			_bookService = bookService;
 			_subsidiaryService = subsidiaryService;
 			_bookSubsidiaryService = bookSubsidiaryService;
 			_borrowedBookService = borrowedBookService;
+			_userService = userService;
 		}
 
 		public IActionResult Index()
@@ -55,6 +57,23 @@ namespace Library_Management.Controllers
 		[ValidateAntiForgeryToken]
 		public IActionResult Borrow(int id, int subsidiaryId)
 		{
+			_userService.UnwelcomeUsers();
+			var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+			var alreadyBorrowed = _borrowedBookService.FindByBookIdAndUserId(id, userId);
+
+			if (alreadyBorrowed != null)
+			{
+				TempData["ErrorMessage"] = "You have already borrowed this book.";
+				return RedirectToAction("Books");
+			}
+
+			var user = _userService.FindById(userId);
+			if (!user.IsWelcome)
+			{
+				TempData["ErrorMessage"] = "You are not welcome to borrow books.";
+				return RedirectToAction("Books");
+			}
+
 			var bookSubsidiary = _bookSubsidiaryService.FindByBookIdAndSubsidiaryId(id, subsidiaryId);
 			if (bookSubsidiary == null)
 			{
@@ -63,7 +82,6 @@ namespace Library_Management.Controllers
 			bookSubsidiary.Quantity--;
 			_bookSubsidiaryService.Update(bookSubsidiary);
 
-			var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
 			var bookSubsidiaryId = bookSubsidiary.Id;
 			var borrowedDate = DateTime.Now;
 			var returnDate = borrowedDate.AddDays(30);
@@ -75,7 +93,7 @@ namespace Library_Management.Controllers
 				ReturnDate = returnDate
 			};
 			_borrowedBookService.Create(borrowedBook);
-
+			TempData["SuccessMessage"] = "The book has been successfully borrowed.";
 			return RedirectToAction("Books");
 		}
 

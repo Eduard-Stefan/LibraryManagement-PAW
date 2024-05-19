@@ -18,6 +18,7 @@ namespace Library_Management.Controllers
 
 		public IActionResult Index()
 		{
+			_userService.UnwelcomeUsers();
 			return View(_userService.FindAll());
 		}
 

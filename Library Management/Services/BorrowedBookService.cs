@@ -29,6 +29,11 @@ namespace Library_Management.Services
 			return _repositoryWrapper.BorrowedBookRepository.FindByCondition(e => e.Id == id).FirstOrDefault();
 		}
 
+		public BorrowedBook? FindByBookIdAndUserId(int bookId, string userId)
+		{
+			return _repositoryWrapper.BorrowedBookRepository.FindByCondition(e => e.BookSubsidiary.BookId == bookId && e.UserId == userId).FirstOrDefault();
+		}
+
 		public void Create(BorrowedBook borrowedBook)
 		{
 			_repositoryWrapper.BorrowedBookRepository.Create(borrowedBook);
